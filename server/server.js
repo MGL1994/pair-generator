@@ -24,17 +24,17 @@ const cohorts = [
             {
                 pairInstance: 0,
                 pairs: [
-                    {pairOne: ["TJ", "Vince"]},
-                    {pairTwo: ["Spinelli", "Gretchen"]},
-                    {pairThree: ["Gus", "Mikey"]}
+                    {pair: ["TJ", "Vince"]},
+                    {pair: ["Spinelli", "Gretchen"]},
+                    {pair: ["Gus", "Mikey"]}
                 ]
             },
             {
                 pairInstance: 1,
                 pairs: [
-                    {pairOne: ["TJ", "Mikey"]},
-                    {pairTwo: ["Vince", "Spinelli"]},
-                    {pairThree: ["Gretchen", "Gus"]}
+                    {pair: ["TJ", "Mikey"]},
+                    {pair: ["Vince", "Spinelli"]},
+                    {pair: ["Gretchen", "Gus"]}
                 ]
             },
         ]
@@ -47,26 +47,41 @@ function pairStudents(id) {
     const students = cohort.students
     const prevPairInstance = cohort.allPairs[cohort.allPairs.length - 1].pairInstance
 
-    for(let counter = students.length - 1; counter > 0; counter--) {
-        const randomCounter = Math.floor(Math.random() * counter)
-        const tempStudentsArray = students[counter]
-        students[counter] = students[randomCounter]
-        students[randomCounter] = tempStudentsArray
-      }
+    // REORDER STUDENTS LIST
 
-    cohort.allPairs.push({
-        pairInstance: prevPairInstance + 1,
-        pairs : [
-            {pairOne: [students[0].name, students[1].name]},
-            {pairTwp: [students[2].name, students[3].name]},
-            {pairThree: [students[4].name, students[5].name]},
-        ]
+    // for(let counter = students.length - 1; counter > 0; counter--) {
+    //     const randomCounter = Math.floor(Math.random() * counter)
+    //     const tempStudentsArray = students[counter]
+    //     students[counter] = students[randomCounter]
+    //     students[randomCounter] = tempStudentsArray
+    //   }
+
+    // CHECK IF PAIRINGS EXIST
+
+    const existingPairs = cohort.allPairs
+
+    existingPairs.map(pairInstance => {
+        pairInstance.pairs.map(pair => {
+            for(let counter = 0; counter < students.length; counter += 2) {
+                if(pair.pair.includes(students[counter].name) && pair.pair.includes(students[counter + 1].name)) {
+                console.log('PAIRED')
+                }
+            }
+        })
     })
 
-    const allPairs = cohort.allPairs
+    return existingPairs
 
-    return allPairs
+    // CREATE NEW PAIRINGS
 
+    // cohort.allPairs.push({
+    //     pairInstance: prevPairInstance + 1,
+    //     pairs : [
+    //         {pairOne: [students[0].name, students[1].name]},
+    //         {pairTwp: [students[2].name, students[3].name]},
+    //         {pairThree: [students[4].name, students[5].name]},
+    //     ]
+    // })
 }
 
 // ROOT ROUTE
