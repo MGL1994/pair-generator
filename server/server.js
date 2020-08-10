@@ -60,17 +60,19 @@ function pairStudents(id) {
 
     const existingPairs = cohort.allPairs
 
+    console.log(students)
+
     existingPairs.map(pairInstance => {
+        let counter = 0
         pairInstance.pairs.map(pair => {
-            for(let counter = 0; counter < students.length; counter += 2) {
-                if(pair.pair.includes(students[counter].name) && pair.pair.includes(students[counter + 1].name)) {
-                console.log('PAIRED')
-                }
+            if(pair.pair.includes(students[counter].name) && pair.pair.includes(students[counter + 1].name)) {
+                console.log(counter, students[counter].name, students[counter + 1].name, 'Duplicates', pair.pair)
+            } else {
+                console.log(counter, students[counter].name, students[counter + 1].name, 'New Pairs', pair.pair)
             }
+            counter += 2
         })
     })
-
-    return existingPairs
 
     // CREATE NEW PAIRINGS
 
@@ -82,6 +84,8 @@ function pairStudents(id) {
     //         {pairThree: [students[4].name, students[5].name]},
     //     ]
     // })
+
+    return existingPairs
 }
 
 // ROOT ROUTE
