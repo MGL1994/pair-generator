@@ -44,46 +44,57 @@ const cohorts = [
 function pairStudents(id) {
 
     const cohort = cohorts[id]
-    const students = cohort.students
-    const prevPairInstance = cohort.allPairs[cohort.allPairs.length - 1].pairInstance
+    let students = cohort.students
+    let prevPairInstance = cohort.allPairs[cohort.allPairs.length - 1].pairInstance
+    let existingPairs = cohort.allPairs
+
+    // CHECK AMOUNT OF PAIRS
+
+    if(existingPairs.length === (students.length - 2)) {
+        existingPairs = []
+        prevPairInstance = (-1)
+    }
 
     // REORDER STUDENTS LIST
 
-    // for(let counter = students.length - 1; counter > 0; counter--) {
-    //     const randomCounter = Math.floor(Math.random() * counter)
-    //     const tempStudentsArray = students[counter]
-    //     students[counter] = students[randomCounter]
-    //     students[randomCounter] = tempStudentsArray
-    //   }
+    let duplicatesCount = 1
 
-    // CHECK IF PAIRINGS EXIST
+    while(duplicatesCount > 0) {
 
-    const existingPairs = cohort.allPairs
+        duplicatesCount = 0
 
-    console.log(students)
+        for(let counter = students.length - 1; counter > 0; counter--) {
+            const randomCounter = Math.floor(Math.random() * counter)
+            const tempStudentsArray = students[counter]
+            students[counter] = students[randomCounter]
+            students[randomCounter] = tempStudentsArray
+        }
 
-    existingPairs.map(pairInstance => {
-        let counter = 0
-        pairInstance.pairs.map(pair => {
-            if(pair.pair.includes(students[counter].name) && pair.pair.includes(students[counter + 1].name)) {
-                console.log(counter, students[counter].name, students[counter + 1].name, 'Duplicates', pair.pair)
-            } else {
-                console.log(counter, students[counter].name, students[counter + 1].name, 'New Pairs', pair.pair)
-            }
-            counter += 2
-        })
-    })
+        // CHECK IF PAIRINGS EXIST
+
+        for(let counter = 0; counter < students.length; counter += 2) {
+            existingPairs.map(pairInstance => {
+                pairInstance.pairs.map(pair => {
+                    if(pair.pair.includes(students[counter].name) && pair.pair.includes(students[counter + 1].name)) {
+                        duplicatesCount += 1
+                    }
+                })
+            })
+        }
+    }
 
     // CREATE NEW PAIRINGS
 
-    // cohort.allPairs.push({
-    //     pairInstance: prevPairInstance + 1,
-    //     pairs : [
-    //         {pairOne: [students[0].name, students[1].name]},
-    //         {pairTwp: [students[2].name, students[3].name]},
-    //         {pairThree: [students[4].name, students[5].name]},
-    //     ]
-    // })
+    cohort.allPairs.push({
+        pairInstance: prevPairInstance + 1,
+        pairs : [
+            {pair: [students[0].name, students[1].name]},
+            {pair: [students[2].name, students[3].name]},
+            {pair: [students[4].name, students[5].name]},
+        ]
+    })
+
+    console.log(`existing pairs = ${existingPairs.length}`, `students = ${students.length - 2}`)
 
     return existingPairs
 }
