@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Home = () => (
-    <section className="hero is-primary is-fullheight">
+    <section className="hero is-info is-fullheight-with-navbar">
         <div className="hero-body">
             <div className="container">
                 <h1 className="title">Pair App</h1>
