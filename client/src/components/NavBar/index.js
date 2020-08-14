@@ -7,6 +7,7 @@ const NavBar = ({ history }) => {
             <div className="navbar-menu">
                 <div className="navbar-start">
                     <NavLink className="home-link navbar-item" to="/">Home</NavLink>
+                    <NavLink activeClassName="active" className="navbar-item" to="/groups">Groups</NavLink>
                 </div>
                 <div className="navbar-end">
                     <div className="navbar-item">
