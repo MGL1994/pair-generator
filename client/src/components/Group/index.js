@@ -1,8 +1,9 @@
 import React from 'react'
 
 export const Group = ({ group }) => (
-    <div>
-        <h1>{group.name}</h1>
-        {group.students.map(student => <li>{student.name}</li>)}
+    <div className="column is-one-quarter">
+        <div className="box has-background-primary has-text-centered">
+            <h2 className="subtitle has-text-white">{group.name}</h2>
+        </div>
     </div>
 )

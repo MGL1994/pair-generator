@@ -16,10 +16,20 @@ const renderGroups = () => {
 }
     
     return (
-        <div>
-            <h1>Groups</h1>
-            {renderGroups()}
-        </div>
+        <>
+            <section className="hero is-info">
+                <div className="hero-body">
+                    <div className="container">
+                        <h1 className="title">Groups</h1>
+                    </div>
+                </div>
+            </section>
+            <section className="section">
+                <div className="columns">
+                    {renderGroups()}
+                </div>
+            </section>
+        </>
     )
 }
 
