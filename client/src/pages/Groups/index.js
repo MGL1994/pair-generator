@@ -1,31 +1,32 @@
-import React, { Component } from 'react'
-import axios from 'axios'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 
-class Groups extends Component {
-    constructor() {
-        super()
+import { fetchGroups } from '../../actions/groupsActions'
+import { Group } from '../../components/Group'
 
-        this.state = {
-            groups: []
-        }
-    }
+const Groups = ({ dispatch, loading, groups, hasErrors }) => {
+    useEffect(() => {
+        dispatch(fetchGroups())
+    }, [dispatch])
+
+const renderGroups = () => {
+    if (loading) return <p>Loading groups...</p>
+    if (hasErrors) return <p>Unable to display groups.</p>
+    return groups.map((group) => <Group key={group.id} group={group} />)
+}
     
-    componentDidMount() {
-        axios.get('http://localhost:3000/cohorts')
-        .then(res => {
-            this.setState({ groups: res.data })
-        })
-    }
-
-
-    render() {
-        return (
-            <>
-                <h1>Groups</h1>
-                {this.state.groups.map(group => <div key={group.id}>{group.name}</div>)}
-            </>
-        )
-    }
+    return (
+        <div>
+            <h1>Groups</h1>
+            {renderGroups()}
+        </div>
+    )
 }
 
-export default Groups
+const mSTP = (state) => ({
+    loading: state.groups.loading,
+    groups: state.groups.groups,
+    hasErrors: state.groups.hasErrors,
+})
+
+export default connect(mSTP)(Groups)
