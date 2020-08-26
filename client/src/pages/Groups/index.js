@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 
 import { fetchGroups } from '../../actions/groupsActions'
-import { Group } from '../../components/Group'
+import { GroupCard, GroupForm } from '../../components'
 
 const Groups = ({ dispatch, loading, groups, hasErrors }) => {
     useEffect(() => {
@@ -12,7 +12,7 @@ const Groups = ({ dispatch, loading, groups, hasErrors }) => {
 const renderGroups = () => {
     if (loading) return <p>Loading groups...</p>
     if (hasErrors) return <p>Unable to display groups.</p>
-    return groups.map((group) => <Group key={group.id} group={group} />)
+    return groups.map((group) => <GroupCard key={group.id} group={group} />)
 }
     
     return (
@@ -20,7 +20,18 @@ const renderGroups = () => {
             <section className="hero is-info">
                 <div className="hero-body">
                     <div className="container">
-                        <h1 className="title">Groups</h1>
+                        <nav className="level">
+                            <div className="level-left">
+                                <div className="level-item">
+                                    <h1 className="title">Groups</h1>
+                                </div>
+                            </div>
+                            <div className="level-right">
+                                <div className="level-item">
+                                    <button className="button">Add</button>
+                                </div>
+                            </div>
+                        </nav>
                     </div>
                 </div>
             </section>
@@ -29,6 +40,7 @@ const renderGroups = () => {
                     {renderGroups()}
                 </div>
             </section>
+            <GroupForm />
         </>
     )
 }
