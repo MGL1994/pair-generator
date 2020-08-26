@@ -15,7 +15,7 @@ export const getGroupsFailure = () => ({
     type: GET_GROUPS_FAILURE,
 })
 
-export function fetchGroups() {
+export const fetchGroups = () => {
     return async (dispatch) => {
       dispatch(getGroups())
   

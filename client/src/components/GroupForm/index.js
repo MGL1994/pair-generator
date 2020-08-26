@@ -8,10 +8,12 @@ class GroupForm extends Component {
 
     render() {
         return (
-                <>
+            <div className="modal">
+                <div className="modal-background"></div>
+                <div className="modal-content">
                     <div className="field">
                         <label className="label">Group Name</label>
-                        <input class="input" type="text" placeholder="Enter name..." />
+                        <input className="input" type="text" placeholder="Enter name..." />
                     </div>
                     <div className="field">
                         <label className="label">Members</label>
@@ -19,7 +21,9 @@ class GroupForm extends Component {
                             <textarea className="textarea" placeholder="Enter members..."></textarea>
                         </div>
                     </div>
-                </>
+                </div>
+                <button className="modal-close is-large" aria-label="close"></button>
+            </div>
         )
     }
 }
